@@ -9,7 +9,7 @@
     * **Passo 3** - Através do arquivo Monitorar.class pelos métodos "iniciarPrograma" e "conectar" é possível localizar o host "52.200.142.116", o usuário "ctflteste" e uma parte da senha "YdrTXPK#m", mais abaixo, no mesmo arquivo, é possível localizar outra parte da senha (String senha = containfo.getSenha() + "cG7KU";) que traz a senha armazenada e concatena com o "cG7KU".
 
 
-    ![Host, Usur e part_senha](C:\Desafio Dev Python\Questao4\Imagens\Firezila.PNG)
+    ![Host, Usur e part_senha](Questao4\Imagens\Firezila.PNG)
 
     * **Passo 4** - No arquivo Conexao.class temos uma nova concateção com a senha no seguinte local (if (!this.ftp.login(usuario, senha + "T#H@$P"))), finalizando a senha como: YdrTXPK#mcG7KUT#H@$P.
 
