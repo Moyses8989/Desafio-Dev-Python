@@ -20,6 +20,7 @@
 * A primeira coisa a fazer é definir uma classe Node que representará cada nó da árvore binária. Cada nó conterá uma chave (key) e referências para os nós à esquerda (left) e à direita (right).
 
 '''python
+
 class Node:
     def __init__(self, key):
         self.key = key
@@ -32,6 +33,7 @@ class Node:
 * A função search busca por um nó na árvore binária de busca com uma chave específica. Se o nó com a chave for encontrado, ele é retornado. Caso contrário, a função continua a busca recursivamente pela subárvore esquerda ou direita.
 
 '''python
+
 def search(root, key):
     if root is None or root.key == key:
         return root
@@ -47,6 +49,7 @@ def search(root, key):
 * A função inorder imprime os elementos da árvore binária de forma ordenada (em ordem crescente). Ela percorre a subárvore esquerda, imprime o nó atual, e depois percorre a subárvore direita.
 
 '''python
+
 def inorder(root):
     if root:
         inorder(root.left)
@@ -59,6 +62,7 @@ def inorder(root):
 * A função inserir insere um novo nó na árvore binária de busca. Se a árvore estiver vazia, ela cria um novo nó. Caso contrário, ela insere o nó na subárvore esquerda ou direita com base na comparação da chave.
 
 '''python
+
 def inserir(root, key):
     if root is None:
         return Node(key)
@@ -79,6 +83,7 @@ def inserir(root, key):
 * A função remover exclui um nó da árvore binária de busca. Se o nó a ser removido tiver dois filhos, a função busca o sucessor do nó (menor valor da subárvore direita), substitui a chave do nó pelo sucessor, e remove o sucessor da subárvore direita.
 
 '''python
+
 def get_successor(curr):
     curr = curr.right
     while curr is not None and curr.left is not None:
@@ -113,6 +118,7 @@ def remover(root, x):
 *  **Testar Inserção:** O teste cria uma árvore e insere um elemento. Depois, verifica se o elemento foi corretamente inserido usando a função search.
 
 '''python
+
 def test_inserir():
     arvore = Node(50)
     arvore = inserir(arvore, 30)
@@ -122,6 +128,7 @@ def test_inserir():
 * **Testar Remoção:** O teste cria uma árvore, insere um elemento, remove o elemento, e verifica se ele foi removido corretamente.
 
 '''python
+
 def test_remover():
     arvore = Node(50)
     arvore = inserir(arvore, 30)
@@ -135,7 +142,7 @@ Os arquivos serão executar via container docker. O arquivo dockerfile anexo uti
 
 Para executar o docker, primeiramente precisa-se criar a imagem de acordo com o arquivo, para isso, utiliza-se o comando: "docker build -t questao5:v1 .", A flag -t permite que você adicione uma tag para sua imagem.
 
-![Criando a imagem](Imagens/buid_image.png)
+![Criando a imagem](Questao5/Imagens/buid_image.png)
 
 A flag -t permite que você adicione uma tag para sua imagem.
 
@@ -143,5 +150,5 @@ Após buidar a imagem, podemos execurar o container docker com o comando
 
 ### Retorno no console
 
-![Teste realizado](./Imagens/pytest.png)
+![Teste realizado](Questao5/Imagens/pytest.png)
 
