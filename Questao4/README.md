@@ -8,12 +8,12 @@
 
     * **Passo 3** - Através do arquivo Monitorar.class pelos métodos "iniciarPrograma" e "conectar" é possível localizar o host "52.200.142.116", o usuário "ctflteste" e uma parte da senha "YdrTXPK#m", mais abaixo, no mesmo arquivo, é possível localizar outra parte da senha (String senha = containfo.getSenha() + "cG7KU";) que traz a senha armazenada e concatena com o "cG7KU".
 
-    ![Host, Usur e part_senha](Questao4/Imagens/Host_login_parte-senha.png)
+    ![Host, Usur e part_senha](Questao4/Imagens/Host_login_parte-senha.PNG)
 
     * **Passo 4** - No arquivo Conexao.class temos uma nova concateção com a senha no seguinte local (if (!this.ftp.login(usuario, senha + "T#H@$P"))), finalizando a senha como: YdrTXPK#mcG7KUT#H@$P.
 
-    ![Parte final da senha](Questao4/Imagens/parte_final_senha.png)
+    ![Parte final da senha](Questao4/Imagens/parte_final_senha.PNG)
 
     * **Passo 5** - Para acessar o servidor e poder localizar o arquivo, utilizei o Firezila para acessar o servidor FTP e assim acessar ao arquivo "Great Job.txt".
 
-    ![Parte final da senha](Questao4/Imagens/Firezila.png)
+    ![Parte final da senha](Questao4/Imagens/Firezila.PNG)

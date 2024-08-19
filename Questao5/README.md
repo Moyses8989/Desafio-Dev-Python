@@ -142,7 +142,7 @@ Os arquivos serão executar via container docker. O arquivo dockerfile anexo uti
 
 Para executar o docker, primeiramente precisa-se criar a imagem de acordo com o arquivo, para isso, utiliza-se o comando: "docker build -t questao5:v1 .", A flag -t permite que você adicione uma tag para sua imagem.
 
-![Criando a imagem](Questao5/Imagens/buid_image.png)
+![Criando a imagem](Questao5/Imagens/buid_image.PNG)
 
 A flag -t permite que você adicione uma tag para sua imagem.
 
@@ -150,5 +150,5 @@ Após buidar a imagem, podemos execurar o container docker com o comando
 
 ### Retorno no console
 
-![Teste realizado](Questao5/Imagens/pytest.png)
+![Teste realizado](Questao5/Imagens/pytest.PNG)
 
