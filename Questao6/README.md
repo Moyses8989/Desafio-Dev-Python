@@ -23,7 +23,7 @@ O Selenium é um recurso que nunca utilizei antes para web scraping. PAra conclu
 ## Resultado retornado
 
 **Retorno obtido:**
-![Retorno Autor](./Questao5/Imagens/Selenium.png)
+![Retorno Autor](Imagens/Selenium.png)
 
 
 ## Execução do script
