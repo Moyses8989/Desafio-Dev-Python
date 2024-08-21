@@ -1,9 +1,5 @@
 # Nome da imagem Docker
-IMAGE_NAME = questao1
-
-# Diretório de saída para os arquivos gerados
-OUTPUT_DIR = ./output
-OUTPUT_FILE = produtos.json
+IMAGE_NAME = questao6
 
 # Comando para construir a imagem Docker
 build:
@@ -11,9 +7,7 @@ build:
 
 # Comando para executar o container Docker
 run:
-	docker run -it --name $(IMAGE_NAME)_temp $(IMAGE_NAME) produtos
-	docker wait $(IMAGE_NAME)_temp
-	docker cp $(IMAGE_NAME)_temp:/app/output/$(OUTPUT_FILE) $(OUTPUT_DIR)/
+	docker run -it --name $(IMAGE_NAME)_temp $(IMAGE_NAME)
 	docker rm $(IMAGE_NAME)_temp
 
 # Comando para limpar os arquivos de saída e remover imagens Docker não usadas
@@ -22,4 +16,4 @@ clean:
 	docker system prune -f
 
 # Comando para reconstruir e executar
-rebuild: clean build
+rebuild: clean build run

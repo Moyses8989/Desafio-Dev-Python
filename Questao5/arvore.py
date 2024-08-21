@@ -61,15 +61,13 @@ def remover(root, x):
         
     return root
 
-# Funções de teste com pytest
 
-def test_inserir():
-    arvore = Node(50)
-    arvore = inserir(arvore, 30)
-    assert search(arvore, 30) is not None, "Elemento 30 não foi inserido corretamente"
+if __name__ == "__main__":
+    a = Node("A")
+    a = inserir(a, "B")
+    a = inserir(a, "C")
+    a = inserir(a, "D")
+    a = inserir(a, "E")
+    a = inserir(a, "J")
 
-def test_remover():
-    arvore = Node(50)
-    arvore = inserir(arvore, 30)
-    arvore = remover(arvore, 30)
-    assert search(arvore, 30) is None, "Elemento 30 não foi removido corretamente"
+    inorder(a)

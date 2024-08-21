@@ -1,12 +1,19 @@
 import json
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from webdriver_manager.chrome import ChromeDriverManager
 
-# Função para iniciar o driver do navegador
+# Função para iniciar o driver do navegador usando webdriver-manager
 def iniciar_driver():
-    return webdriver.Chrome()
+    options = Options()
+    options.add_argument('--headless')
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
+    return webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
 # Função para abrir a página principal
 def abrir_pagina_principal(driver):
@@ -98,9 +105,12 @@ if __name__ == '__main__':
     autor_nome = 'J.K. Rowling'
     citacoes, autor_info = processar_extracao(autor_nome)
 
-    print("\nInformações do Autor:")
-    print(autor_info)
+    json_formatted_autor = json.dumps(autor_info, indent=4)
 
-    print("\nCitações:")
+    print("\nInformações do Autor:")
+    print(json_formatted_autor)
+
+    print("]n\nCitações:")
     for citacao in citacoes:
-        print(citacao)
+        json_formatted_citacao = json.dumps(citacao, indent=4)
+        print(json_formatted_citacao)

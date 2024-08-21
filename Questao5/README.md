@@ -1,19 +1,25 @@
 # Projeto Questao5 com Docker
 
-# Criação de uma estrutura de dados Arvore binária.
+## Criação de uma estrutura de dados Arvore binária.
 
-# Estrutura do projeto
+### Estrutura do projeto
 
 ```plaintext
 questao5/
 ├── Dockerfile
 ├── README.md
 ├── requirements.txt
+├── Makefile
 └── arvore.py
 
 ```
 
-## O que é uma árvore binária?
+## Pré-requisitos
+
+- **Docker**: Certifique-se de que o Docker esteja instalado na sua máquina.
+- **Make (Opcional)**: Para facilitar a execução dos comandos, o `make` pode ser usado. Ele vem pré-instalado em sistemas Linux e macOS, mas pode ser instalado no Windows via [Chocolatey](https://chocolatey.org/install) ou [WSL](https://docs.microsoft.com/pt-br/windows/wsl/install).
+
+### O que é uma árvore binária?
 
 - Uma árvore binária é uma estrutura não linear, ou seja, apresenta múltiplos caminhos a serem percorridos. A árvore se inicia com um nó principal chamado de Raiz e a partir dessa raiz, criam-se os nós que são chamados de "filhos" e cada nó pode ter apenas 2 filhos, um criado a esqueda e o outro a direita do nó pai.
 
@@ -32,18 +38,18 @@ questao5/
     
 * A primeira coisa a fazer é definir uma classe Node que representará cada nó da árvore binária. Cada nó conterá uma chave (key) e referências para os nós à esquerda (left) e à direita (right).
 
-'''Python
+````Python
 class Node:
     def __init__(self, key):
         self.key = key
         self.left = None
         self.right = None
-'''
+````
 ## Função de Busca
 
 * A função search busca por um nó na árvore binária de busca com uma chave específica. Se o nó com a chave for encontrado, ele é retornado. Caso contrário, a função continua a busca recursivamente pela subárvore esquerda ou direita.
 
-'''python
+```python
 
 def search(root, key):
     if root is None or root.key == key:
@@ -53,26 +59,26 @@ def search(root, key):
         return search(root.right, key)
     
     return search(root.left, key)
-'''
+```
 
 ## Percurso em Ordem (Inorder)
 
 * A função inorder imprime os elementos da árvore binária de forma ordenada (em ordem crescente). Ela percorre a subárvore esquerda, imprime o nó atual, e depois percorre a subárvore direita.
 
-'''python
+```python
 
 def inorder(root):
     if root:
         inorder(root.left)
         print(root.key, end=" ")
         inorder(root.right)
-'''
+```
 
 ## Função de Inserção
 
 * A função inserir insere um novo nó na árvore binária de busca. Se a árvore estiver vazia, ela cria um novo nó. Caso contrário, ela insere o nó na subárvore esquerda ou direita com base na comparação da chave.
 
-'''python
+```python
 
 def inserir(root, key):
     if root is None:
@@ -87,13 +93,13 @@ def inserir(root, key):
         root.left = inserir(root.left, key)
     
     return root
-'''
+```
 
 ## Função de Remoção
 
 * A função remover exclui um nó da árvore binária de busca. Se o nó a ser removido tiver dois filhos, a função busca o sucessor do nó (menor valor da subárvore direita), substitui a chave do nó pelo sucessor, e remove o sucessor da subárvore direita.
 
-'''python
+```python
 
 def get_successor(curr):
     curr = curr.right
@@ -120,7 +126,7 @@ def remover(root, x):
         root.right = remover(root.right, succ.key)
         
     return root
-'''
+```
 
 # Testes unitários com Pytest
 
@@ -128,7 +134,7 @@ O teste unitário irá validar se um elemento foi devidamente inserido na arvore
 
 * Através de validação com If e else.
 
-'''python
+```python
 
 def realizar_teste_unitario(elemento_testado, funcao_teste, parametros_extras_funcao_teste, funcao_validacao_resultado):
     resultado = funcao_teste(elemento_testado, parametros_extras_funcao_teste)
@@ -155,29 +161,85 @@ arvore = Node(50)
 realizar_teste_unitario(arvore, inserir, 30, validar_insercao)
 realizar_teste_unitario(arvore, remover, 30, validar_remocao)
 
-'''
+```
 
-* Ou então, utilizando a bliblioteca `pytest`. O  `pytest` é uma biblioteca própria para a realização de testes unitários em python, sendo um método muito prático. A instrução `passert` fará a validação da condição aplicada. Se o resultado for verdadeiro, o script continuará sua execução, mas se o resultado for falso, o retorno será um `AssertionError`.
+* Utilizando a bliblioteca `pytest`. O  `pytest` é uma biblioteca própria para a realização de testes unitários em python, sendo um método muito prático. A instrução `assert` fará a validação da condição aplicada. Se o resultado for verdadeiro, o script continuará sua execução, mas se o resultado for falso, o retorno será um `AssertionError`.
 
 *  **Testar Inserção:** O teste cria uma árvore e insere um elemento. Depois, verifica se o elemento foi corretamente inserido usando a função search.
 
-'''python
+```python
 
 def test_inserir():
     arvore = Node(50)
     arvore = inserir(arvore, 30)
     assert search(arvore, 30) is not None, "Elemento 30 não foi inserido corretamente"
-'''
+```
 
 * **Testar Remoção:** O teste cria uma árvore, insere um elemento, remove o elemento, e verifica se ele foi removido corretamente.
 
-'''python
+```python
 
 def test_remover():
     arvore = Node(50)
     arvore = inserir(arvore, 30)
     arvore = remover(arvore, 30)
     assert search(arvore, 30) is None, "Elemento 30 não foi removido corretamente"
-'''
+```
+
+## Usando o Makefile
+O `Makefile` automatiza a construção, execução e limpeza do ambiente Docker. Siga os passos abaixo para usar os comandos do `make`.
+
+1. Construir a Imagem Docker
+Para construir a imagem Docker do projeto, use:
+
+```bash
+make build
+```
+
+2. Executar os testes da arvore
+Para executar o testes dentro do container Docker basta executar:
+
+```bash
+make run
+```
+
+3. Recompilar e Executar
+Se você quiser limpar o ambiente, reconstruir a imagem Docker e executar o scraper, use:
+
+```bash
+make rebuild
+```
+
+4. Limpar o Ambiente
+Para limpar o diretório de saída e remover as imagens Docker criadas:
+
+```bash
+make clean
+```
+
+## Usando Docker Diretamente
+Se preferir, você também pode usar comandos Docker diretamente, sem o Makefile.
+
+1. Construir a Imagem Docker
+
+```bash
+docker build -t questao_5 .
+```
+
+2. Executar o scrap de citações
+Para executar o scraper dentro do container Docker basta executar::
+
+```bash
+docker run -it --name questao5_temp questao6
+docker rm questao5_temp
+```
+
+3. Limpar o Ambiente
+Para limpar o ambiente, remova o container temporário e a imagem Docker:
+
+```bash
+docker rmi questao5
+docker system prune -f
+```
 
 

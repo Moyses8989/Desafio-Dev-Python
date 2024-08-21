@@ -1,5 +1,7 @@
 import scrapy
 import json
+import time
+import os
 
 class CompraAgoraSpider(scrapy.Spider):
     name = "produtos"
@@ -12,33 +14,16 @@ class CompraAgoraSpider(scrapy.Spider):
         super(CompraAgoraSpider, self).__init__(*args, **kwargs)
         self.items = []  # Inicializa uma lista para armazenar os produtos
 
-    # def start_requests(self):
-    #     # Hash the password using pynacl (Blake2b with a key as an example)
-    #     hashed_password = blake2b(self.password.encode(), key=b'secret_key', encoder=HexEncoder)
-
-    #     # Fazendo login
-    #     yield FormRequest(
-    #         url=self.login_url,
-    #         method="POST",
-    #         formdata={"login": self.username, "senha": hashed_password.decode()},
-    #         callback=self.after_login
-    #     )
-
     def start_requests(self):
-        # Verifica se o login foi bem-sucedido
-        # if "minha-conta" in response.url:
-        self.log("Login bem-sucedido.")
         # Continue to parse categories
         yield scrapy.Request(
             url=self.start_urls[0],
             callback=self.parse_categories
         )
-        # else:
-        #     self.log("Falha no login.")
 
 
     def parse_categories(self, response):
-        categories = categories = [{"id":1458, "nome": "destaques"},
+        categories  = [{"id":1458, "nome": "destaques"},
                         {"id":800, "nome": "alimentos"},
                         {"id":344, "nome": "bazar"},
                         {"id":778, "nome": "bebidas"},
@@ -55,7 +40,7 @@ class CompraAgoraSpider(scrapy.Spider):
         for category in categories:
             category_code = f"{category['nome']}/{category['id']}"
             api_url = f"https://www.compra-agora.com/api/catalogproducts/{category_code}"
-            self.log(f"Visitando a categoria: {category['nome']} - URL: {api_url}")
+            self.logger.info(f"Visitando a categoria: {category['nome']} - URL: {api_url}")
 
             yield scrapy.Request(
                 url=api_url,
@@ -64,18 +49,24 @@ class CompraAgoraSpider(scrapy.Spider):
             )
 
     def parse_products(self, response):
-        category_name = response.meta['category_name']
+        items_aux = []
         products = response.json().get("produtos", [])
         for product in products:
             item = {
-                "Categoria": category_name,
-                "Descrição": product.get("Nome"),
-                "Fabricante": product.get("Fabricante"),
-                "URL": product.get("Url")
+                "descrição": product.get("Nome"),
+                "descricao_fabricante": product.get("Variacoes")[0].get("DescricaoFabricante"),
+                "imagem_url": f"https://images-unilever.ifcshop.com.br/produto/{product.get('Foto')}"
             }
-            self.items.append(item)  # Adiciona o item à lista de produtos
+            items_aux.append(item) # Adiciona o item à lista de produtos
+        self.logger.info(items_aux)
+        self.items.extend(items_aux)  
+        time.sleep(10)
 
-    def close(self, reason):
+    def close(self):
+        output_dir = '/app/output'
+        path = 'produtos.json'
+        if os.path.exists(output_dir):
+            path = os.path.join(output_dir, path)
         # Salvando os resultados em um arquivo JSON
-        with open('produtos.json', 'w', encoding='utf-8') as f:
+        with open(path, 'w', encoding='utf-8') as f:
             json.dump(self.items, f, ensure_ascii=False, indent=4)

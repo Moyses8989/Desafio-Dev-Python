@@ -2,7 +2,7 @@
 
 Nunca trabalhei com arquivos .jar, então, como essa foi a primeira vez, optei por uma forma mais simples para resolver essa questão.
 
-* **Passo 1** - Primeiramente pesquisar como poderia executar o projeto a fim de conseguir os dados solicitados, após algums  pesquisar na Web e também no Chat GPT, optei em utilizar um Java Decompiler (JD-GUI).
+* **Passo 1** - Primeiramente pesquisar como poderia executar o projeto a fim de conseguir os dados solicitados, após algums pesquisar na Web, optei em utilizar um Java Decompiler (JD-GUI).
 
 * **Passo 2** - Após concluir a instalação do Java e do JD-GUI, obtive acesso  ao código fonte do projeto.
 
