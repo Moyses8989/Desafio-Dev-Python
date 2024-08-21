@@ -1,5 +1,5 @@
 # Imagem base
-FROM python:3.6-slim
+FROM python:3.10
 
 # Defina o diretório de trabalho no container
 WORKDIR /app
@@ -14,7 +14,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 RUN mkdir -p /app/output
 
 # Copie todo o conteúdo do projeto para o diretório de trabalho
-COPY arvore.py ./
+RUN mkdir -p /app/pedidos
+COPY /produtos/. /app/produtos/
+COPY scrapy.cfg /app/
 
 # Defina o comando padrão para rodar o spider
-ENTRYPOINT ["pytest", "arvore.py"]
+ENTRYPOINT ["scrapy", "crawl"]

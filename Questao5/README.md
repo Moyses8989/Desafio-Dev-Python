@@ -1,4 +1,17 @@
+# Projeto Questao5 com Docker
+
 # Criação de uma estrutura de dados Arvore binária.
+
+# Estrutura do projeto
+
+```plaintext
+questao5/
+├── Dockerfile
+├── README.md
+├── requirements.txt
+└── arvore.py
+
+```
 
 ## O que é uma árvore binária?
 
@@ -113,7 +126,39 @@ def remover(root, x):
 
 # Testes unitários com Pytest
 
-* A linguagem python possuí uma biblioteca especificada para realização de testes automatizados, a lib pytest permite que um teste seja realizado de maneira simples  apenas pela identificação de "test" no nome da função. A instrução assert valida se a condição que está sendo testada é verdadeira ou falsa. Se a condição for verdadeira, a execução do script continua, contudo, se a condição for falsa, o pytest apresentará um AssertionError.
+O teste unitário irá validar se um elemento foi devidamente inserido na arvore e também validará a remoção de um elemento. O teste pode ser aplicado de duas formas.
+
+* Através de validação com If e else.
+
+'''python
+def realizar_teste_unitario(elemento_testado, funcao_teste, parametros_extras_funcao_teste, funcao_validacao_resultado):
+    resultado = funcao_teste(elemento_testado, parametros_extras_funcao_teste)
+    validacao, mensagem_de_erro = funcao_validacao_resultado(elemento_testado, parametros_extras_funcao_teste)
+
+    if validacao:
+        print(f"Teste da função {funcao_teste.__name__}: Sucesso!")
+    else:
+        print(f"Teste da função {funcao_teste.__name__}: Erro! Mensagem de Erro: {mensagem_de_erro}")
+
+def validar_insercao(arvore, valor_inserido):
+    if search(arvore, valor_inserido):
+        return True, None
+    else:
+        return False, f"Elemento {valor_inserido} não encontrado"
+
+def validar_remocao(arvore, valor_removido):
+    if search(arvore, valor_removido):
+        return False, f"Elemento {valor_removido} encontrado"
+    else:
+        return True, None
+
+arvore = Node(50)
+realizar_teste_unitario(arvore, inserir, 30, validar_insercao)
+realizar_teste_unitario(arvore, remover, 30, validar_remocao)
+
+'''
+
+* Ou então, utilizando a bliblioteca `pytest`. O  `pytest` é uma biblioteca própria para a realização de testes unitários em python, sendo um método muito prático. A instrução `passert` fará a validação da condição aplicada. Se o resultado for verdadeiro, o script continuará sua execução, mas se o resultado for falso, o retorno será um `AssertionError`.
 
 *  **Testar Inserção:** O teste cria uma árvore e insere um elemento. Depois, verifica se o elemento foi corretamente inserido usando a função search.
 
@@ -136,19 +181,26 @@ def test_remover():
     assert search(arvore, 30) is None, "Elemento 30 não foi removido corretamente"
 '''
 
-# Comando de execução.
+## Usando Docker
 
-Os arquivos serão executar via container docker. O arquivo dockerfile anexo utiliza a imagem do python 3.6 ou superior, define o diretorio para /app, instala o pytest, copia o arquivo .py e executa com o comando CMD ["pytest", "Questao5.py"].
+1. Construir a Imagem Docker
 
-Para executar o docker, primeiramente precisa-se criar a imagem de acordo com o arquivo, para isso, utiliza-se o comando: "docker build -t questao5:v1 .", A flag -t permite que você adicione uma tag para sua imagem.
+```bash
+docker build -t questao_5 .
+```
 
-![Criando a imagem](Questao5/Imagens/buid_image.PNG)
+2. Executar o Container
+Execute o container com o comando docker run <nome_da_imagem>
 
-A flag -t permite que você adicione uma tag para sua imagem.
+```bash
+docker run -d --name questao5_temp questao_5
+```
 
-Após buidar a imagem, podemos execurar o container docker com o comando
+3. Limpar o Ambiente
+Para limpar o ambiente, remova o container temporário e a imagem Docker:
 
-### Retorno no console
-
-![Teste realizado](Questao5/Imagens/pytest.PNG)
+```bash
+docker rmi questao2
+docker system prune -f
+```
 

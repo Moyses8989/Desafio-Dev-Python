@@ -9,7 +9,7 @@ AWS Client VPN: Permite que usuários remotos se conectem com segurança à rede
 
 Uma Amazon Subnet é uma subdivisão dentro de uma Amazon VPC que organiza e isola recursos em blocos menores de rede. Ao criar uma VPC, você define um bloco de endereços IP (CIDR) e, dentro dessa VPC, pode criar várias subnets, cada uma com seu próprio intervalo de endereços IP.
 
-Tipos de Subnets:
+### Tipos de Subnets:
 
 **Subnet Pública:** Conectada a um Internet Gateway (IGW), permitindo que recursos como instâncias EC2 se comuniquem diretamente com a internet.
 **Subnet Privada:** Não tem acesso direto à internet pública e geralmente usa um NAT Gateway ou NAT Instance para conectividade de saída.
@@ -18,8 +18,6 @@ Tipos de Subnets:
 O Amazon Security Group é uma ferramenta de controle de acesso para recursos da AWS, como instâncias EC2, funcionando como um firewall virtual. Ele define regras de tráfego de entrada e saída, determinando quem pode acessar ou se comunicar com esses recursos.
 
 ## Relação entre Amazon VPN, Security Groups e Subnets
-
-A relação entre Amazon Security Groups, Amazon Subnets e Amazon VPN é fundamental para a segurança, segmentação de redes e controle de acesso na Amazon VPC. Eles trabalham juntos para criar uma rede segura e escalável na AWS.
 
 ### Amazon VPC e Subnets:
 **Amazon VPC:** Rede virtual onde você organiza e isola recursos como instâncias EC2 e bancos de dados RDS.
