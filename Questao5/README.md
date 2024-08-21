@@ -32,20 +32,18 @@ questao5/
     
 * A primeira coisa a fazer é definir uma classe Node que representará cada nó da árvore binária. Cada nó conterá uma chave (key) e referências para os nós à esquerda (left) e à direita (right).
 
-'''python
-
+```Python
 class Node:
     def __init__(self, key):
         self.key = key
         self.left = None
         self.right = None
-'''
-
+```
 ## Função de Busca
 
 * A função search busca por um nó na árvore binária de busca com uma chave específica. Se o nó com a chave for encontrado, ele é retornado. Caso contrário, a função continua a busca recursivamente pela subárvore esquerda ou direita.
 
-'''python
+```python
 
 def search(root, key):
     if root is None or root.key == key:
@@ -55,26 +53,26 @@ def search(root, key):
         return search(root.right, key)
     
     return search(root.left, key)
-'''
+```
 
 ## Percurso em Ordem (Inorder)
 
 * A função inorder imprime os elementos da árvore binária de forma ordenada (em ordem crescente). Ela percorre a subárvore esquerda, imprime o nó atual, e depois percorre a subárvore direita.
 
-'''python
+```python
 
 def inorder(root):
     if root:
         inorder(root.left)
         print(root.key, end=" ")
         inorder(root.right)
-'''
+```
 
 ## Função de Inserção
 
 * A função inserir insere um novo nó na árvore binária de busca. Se a árvore estiver vazia, ela cria um novo nó. Caso contrário, ela insere o nó na subárvore esquerda ou direita com base na comparação da chave.
 
-'''python
+```python
 
 def inserir(root, key):
     if root is None:
@@ -89,13 +87,13 @@ def inserir(root, key):
         root.left = inserir(root.left, key)
     
     return root
-'''
+```
 
 ## Função de Remoção
 
 * A função remover exclui um nó da árvore binária de busca. Se o nó a ser removido tiver dois filhos, a função busca o sucessor do nó (menor valor da subárvore direita), substitui a chave do nó pelo sucessor, e remove o sucessor da subárvore direita.
 
-'''python
+```python
 
 def get_successor(curr):
     curr = curr.right
@@ -122,7 +120,7 @@ def remover(root, x):
         root.right = remover(root.right, succ.key)
         
     return root
-'''
+```
 
 # Testes unitários com Pytest
 
@@ -162,45 +160,38 @@ realizar_teste_unitario(arvore, remover, 30, validar_remocao)
 
 *  **Testar Inserção:** O teste cria uma árvore e insere um elemento. Depois, verifica se o elemento foi corretamente inserido usando a função search.
 
-'''python
+```python
 
 def test_inserir():
     arvore = Node(50)
     arvore = inserir(arvore, 30)
     assert search(arvore, 30) is not None, "Elemento 30 não foi inserido corretamente"
-'''
+```
 
 * **Testar Remoção:** O teste cria uma árvore, insere um elemento, remove o elemento, e verifica se ele foi removido corretamente.
 
-'''python
+```python
 
 def test_remover():
     arvore = Node(50)
     arvore = inserir(arvore, 30)
     arvore = remover(arvore, 30)
     assert search(arvore, 30) is None, "Elemento 30 não foi removido corretamente"
-'''
-
-## Usando Docker
-
-1. Construir a Imagem Docker
-
-```bash
-docker build -t questao_5 .
 ```
 
-2. Executar o Container
-Execute o container com o comando docker run <nome_da_imagem>
+# Comando de execução.
 
-```bash
-docker run -d --name questao5_temp questao_5
-```
+Os arquivos serão executar via container docker. O arquivo dockerfile anexo utiliza a imagem do python 3.6 ou superior, define o diretorio para /app, instala o pytest, copia o arquivo .py e executa com o comando CMD ["pytest", "Questao5.py"].
 
-3. Limpar o Ambiente
-Para limpar o ambiente, remova o container temporário e a imagem Docker:
+Para executar o docker, primeiramente precisa-se criar a imagem de acordo com o arquivo, para isso, utiliza-se o comando: "docker build -t questao5:v1 .", A flag -t permite que você adicione uma tag para sua imagem.
 
-```bash
-docker rmi questao2
-docker system prune -f
-```
+![Criando a imagem](Questao5/Imagens/buid_image.PNG)
+
+A flag -t permite que você adicione uma tag para sua imagem.
+
+Após buidar a imagem, podemos execurar o container docker com o comando
+
+### Retorno no console
+
+![Teste realizado](Questao5/Imagens/pytest.PNG)
 
