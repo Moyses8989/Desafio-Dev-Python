@@ -4,14 +4,14 @@
 
 # Estrutura do projeto
 
-'''plaintext
+```plaintext
 questao5/
 ├── Dockerfile
 ├── README.md
 ├── requirements.txt
 └── arvore.py
 
-'''
+```
 
 ## O que é uma árvore binária?
 
