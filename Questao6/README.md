@@ -1,33 +1,20 @@
-# Questão 6
+# Projeto Questao6 com Docker
 
-O Selenium é um recurso que nunca utilizei antes para web scraping. PAra concluir essa questão, está sendo utilizado o webdriver e o By. O Webdriver simula um navegador e pode ser utilizado com o navegador a sua escolha, neste caso, estou utilizando o chrome. Já o By é utilizado para busca de elementos na página.
+# Scraper de Citações
+Este projeto contém um scraper para extrair citações de um autor específico do site Quotes to Scrape. O scraper utiliza a biblioteca Selenium para automação de navegador e a biblioteca JSON para salvar os dados extraídos em um arquivo.
 
-* A função de extrair citações será responsável pela busca e armazenamento das informações desejadas, neste caso, as citações e Tags relacionada ao autor desejado.
+# Visão Geral
+O script realiza as seguintes etapas:
 
-* O comando driver.get inicia o navegador.
+* Inicia um driver do navegador usando o Selenium.
+* Navega para a página principal do site de citações.
+* Extrai citações do autor especificado e suas informações biográficas.
+* Navega pelas páginas para obter todas as citações disponíveis do autor.
+* Salva os dados extraídos em um arquivo JSON.
 
-* As variaveis ciratações e autor_info irão armazenar as informações coletadas do site.
+# Tecnologias
 
-* O bloco try é utilizado para gerar exceções tratar os erros internamentes.
+* Python: Linguagem de programação usada para o script.
+* Selenium: Biblioteca para automação de navegador.
+* JSON: Formato para salvar os dados extraídos.
 
-* O laço While truta garante que enquanto houver com citações para percorrer.
-
-* O comando "driver.find_elements(By.CLASS_NAME, 'quote')" encontra todos os elementos de citação através da classe Name.
-
-* A condição  "if" verifica se o nome do autor na pagica corresponde ao procurado, caso sim, irá extrair as informações e tags e irá clicar no botão "about" através da função "about_button.click()", que identifica o botão pelo Xpath. Após clicar no botão abount, irá extrair as informações de nome, aniversário e bio do autor e depois fechará a nova página, retornando para a anterior, encerrando o if.
-
-* Por fim, o script verificar se há um botão "next" para avançar para as proximas páginas, caso sim, ele irá clicar no botão até chegar a última e irá armazenando todas as citações e tags relacionadas ao autor pesquisado.
-
-*  E para o melhor gerenciamento, cria-se uma "main" a fim de se obter uma melhor organização e controle do código.
-
-## Resultado retornado
-
-**Retorno obtido:**
-
-![Selenium](https://github.com/user-attachments/assets/4cf955a3-48bb-4f72-a832-4be0e5b09c05)
-
-
-## Execução do script
-
-   * **Passo 1** - Criar um docketfile
-   * **Passo 2** - Criar a imagem do docket com o comando: docker build -t questao6:q6 .
